@@ -1,0 +1,29 @@
+{
+    "jpsType": "install",
+    "jpsVersion": "0.99",
+    "id": "eclipse-che",
+    "name": "Eclipse Che",
+    "logo": "https://github.com/jelastic-jps/che/raw/master/images/eclipse-che-logo.png",
+    "categories": [
+        "apps/dev-and-admin-tools",
+        "apps/dev-tools"
+    ],
+    "region": "vz7",
+    "description": {
+        "text": "Use Che as an IDE for any framework or programming language. Take your projects and runtimes anywhere with workspace portability and cloud export.",
+        "short": "Eclipse Che is a Next-Generation Cloud IDE "
+    },
+    "ssl": true,
+    "nodes": [{
+        "cloudlets": 32,
+        "displayName": "Eclipse Che",
+        "image": "jelastic/docker-ce",
+        "nodeGroup": "cp",
+        "volumes": [
+            "/data"
+        ]
+    }],
+    "onInstall": {
+        "cmd[cp]": "docker run -t -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=80 eclipse/che start &>> /var/log/run.log"
+    }
+}
