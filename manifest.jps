@@ -13,17 +13,18 @@
         "text": "Use Che as an IDE for any framework or programming language. Take your projects and runtimes anywhere with workspace portability and cloud export.",
         "short": "Eclipse Che is a Next-Generation Cloud IDE "
     },
-    "ssl": true,
+    "ssl": false,
     "nodes": [{
         "cloudlets": 32,
         "displayName": "Eclipse Che",
         "image": "jelastic/docker-ce",
+        "extip": true,
         "nodeGroup": "cp",
         "volumes": [
             "/data"
         ]
     }],
     "onInstall": {
-        "cmd[cp]": "docker run -t -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=80 eclipse/che start &>> /var/log/run.log"
+        "cmd[cp]": "docker run -t --rm -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=80 -e CHE_HOST=${nodes.cp.first.extIPs.first} eclipse/che start &>> /var/log/run.log"
     }
 }
