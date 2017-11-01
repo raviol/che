@@ -20,11 +20,14 @@
         "image": "jelastic/docker-ce",
         "extip": true,
         "nodeGroup": "cp",
+        "env": {
+            "JELASTIC_EXPOSE": 8080
+        },
         "volumes": [
             "/data"
         ]
     }],
     "onInstall": {
-        "cmd[cp]": "docker run -t --rm -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=80 -e CHE_HOST=${nodes.cp.first.extIPs.first} eclipse/che start &>> /var/log/run.log"
+        "cmd[cp]": "docker run -t --rm -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=8080 -e CHE_HOST=${nodes.cp.first.extIPs.first} eclipse/che start &>> /var/log/run.log"
     }
 }
