@@ -43,11 +43,11 @@
         ]
     }],
     "onInstall": [{
-            "if (${settings.mode == 'multi'})": {
+            "if (${settings.mode} == 'multi')": {
                 "cmd[cp]": "docker run -t --rm -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=80 -e CHE_HOST=${nodes.cp.first.extIPs.first} -e CHE_MULTIUSER=true eclipse/che start &>> /var/log/run.log"
             }
         }, {
-            "if (${settings.mode == 'single'})": {
+            "if (${settings.mode} == 'single')": {
                 "cmd[cp]": "docker run -t --rm -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=80 -e CHE_HOST=${nodes.cp.first.extIPs.first} eclipse/che start &>> /var/log/run.log"
             }
         }
