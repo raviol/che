@@ -43,11 +43,13 @@
         ]
     }],
     "onInstall": [{
-            "if (${settings.mode} == 'multi')": {
-                "cmd[cp]": "docker run -t --rm -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=80 -e CHE_HOST=${nodes.cp.first.extIPs.first} -e CHE_MULTIUSER=true eclipse/che start &>> /var/log/run.log"
+            "if ('${settings.mode}' == 'multi')": {
+                "cmd[cp]": "docker run -t --rm -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=80 -e CHE_HOST=${nodes.cp.first.extIPs.first} -e CHE_MULTIUSER=true eclipse/che start &>> /var/log/run.log",
+                "cmd[cp]": "docker exec -it che80_keycloak_1 /opt/jboss/keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm che --user admin --password admin",
+                "cmd[cp]": "docker exec -it che80_keycloak_1 /opt/jboss/keycloak/bin/kcadm.sh update clients/40162c8f-5c44-4b61-91cf-a6eac6b9e61a -s 'redirectUris=[\"http://env-1120760.stage.jelastic.com/*\", \"http://158.69.106.201:80/*\"]'"
             }
         }, {
-            "if (${settings.mode} == 'single')": {
+            "if ('${settings.mode}' == 'single')": {
                 "cmd[cp]": "docker run -t --rm -v /var/run/docker.sock:/var/run/docker.sock -v /data:/data -e CHE_PORT=80 -e CHE_HOST=${nodes.cp.first.extIPs.first} eclipse/che start &>> /var/log/run.log"
             }
         }
