@@ -1,0 +1,1 @@
+/opt/jboss/keycloak/bin/kcadm.sh update users/b07e3a58-ed50-4a6e-be17-fcf49ff8b242 -r che -s requiredActions=[]
